@@ -14,6 +14,10 @@ const checkAuthentication = require('./middleware/checkAuthentication');
 // controller imports
 const authControllers = require('./controllers/authControllers');
 const userControllers = require('./controllers/userControllers');
+const organizationControllers = require('./controllers/organizationControllers')
+const volunteerControllers = require('./controllers/volunteerControllers')
+const postControllers = require('./controllers/postControllers')
+
 const app = express();
 
 // middleware
@@ -38,6 +42,7 @@ app.delete('/api/logout', authControllers.logoutUser);
 // User Routes
 ///////////////////////////////
 
+
 app.post('/api/users', userControllers.createUser);
 
 // These actions require users to be logged in (authentication)
@@ -46,6 +51,32 @@ app.get('/api/users', checkAuthentication, userControllers.listUsers);
 app.get('/api/users/:id', checkAuthentication, userControllers.showUser);
 app.patch('/api/users/:id', checkAuthentication, userControllers.updateUser);
 
+
+///////////////////////////////
+// Org Routes
+///////////////////////////////
+
+app.post('/api/organization', organizationControllers.addOrganization);
+
+
+
+///////////////////////////////
+// Vol Routes
+///////////////////////////////
+
+app.post('/api/volunteers', volunteerControllers.addVolunteer);
+
+
+
+///////////////////////////////
+// Pos Routes
+///////////////////////////////
+
+app.post('/api/posts', postControllers.addPost);
+app.post('/api/posts', postControllers.addPost);  
+app.get('/api/posts', postControllers.getPosts);
+app.patch('/api/posts/:id',postControllers.updatePost)
+app.delete('/api/posts/:id',postControllers.deletePost)
 
 
 ///////////////////////////////
